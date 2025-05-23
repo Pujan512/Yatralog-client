@@ -8,8 +8,9 @@ const Blogs = () => {
   useEffect(()=>{
     getBlogs();
   },[])  
+
   return (
-    <section>{blogs.map((blog, index) =>(
+    <section className='flex flex-1 flex-col'>{blogs.map((blog, index) =>(
       <h2 key={index}>{blog.title}</h2>
     ))}</section>
   )

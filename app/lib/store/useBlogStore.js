@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { axiosInstance } from "../axios";
-import { useParams } from "next/navigation";
 
 export const useBlogStore = create((set, get)=>({
     blogs: [],
+    selectedBlog: {},
 
     getBlogs: async () => {
         try {
@@ -15,9 +15,15 @@ export const useBlogStore = create((set, get)=>({
         }
     },
 
-    getBlog: async () => {
-        const {id} = useParams();
-        console.log(id);
+    getBlog: async (id) => {
+        try {
+            const res = await axiosInstance.get("/blogs/"+id);
+            console.log(res.data)
+            set({selectedBlog: res.data})
+        } catch (error) {
+            console.log(error.response.data.message);
+            set({selectedBlog: null});
+        }
     },
 
     postBlog: async (data) => {
@@ -27,13 +33,19 @@ export const useBlogStore = create((set, get)=>({
             return {success: true, data: res.data};
         } catch (error) {
             console.log(error.response.data.message);
-            set({blogs: []});
+            set({blogs: [...get().blogs]});
             return {success: false};
         }
     },
 
-    deleteBlog: async () => {
-
+    deleteBlog: async (id) => {
+        try {
+            const res = await axiosInstance.delete("/blogs/"+id);
+            set({blogs: [...get().blogs.filter(blog => blog.id !== id)]})
+        } catch (error) {
+            console.log(error.response.data.message);
+            set({blogs: [...get().blogs]});
+        }
     },
 
     updateBlog: async (data) => {
