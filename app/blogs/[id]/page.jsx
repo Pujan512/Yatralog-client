@@ -8,6 +8,7 @@ const Blog = () => {
   const { id } = useParams();
   const author = selectedBlog.authorId ? selectedBlog.authorId.fName + " " + selectedBlog.authorId?.lName : '';
 
+  //TODO: implement loading in this page and in /blogs page
   useEffect(() => {
     getBlog(id);
   }, [])

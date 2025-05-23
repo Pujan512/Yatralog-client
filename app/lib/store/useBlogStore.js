@@ -18,7 +18,6 @@ export const useBlogStore = create((set, get)=>({
     getBlog: async (id) => {
         try {
             const res = await axiosInstance.get("/blogs/"+id);
-            console.log(res.data)
             set({selectedBlog: res.data})
         } catch (error) {
             console.log(error.response.data.message);
@@ -37,18 +36,27 @@ export const useBlogStore = create((set, get)=>({
             return {success: false};
         }
     },
-
+    
     deleteBlog: async (id) => {
         try {
             const res = await axiosInstance.delete("/blogs/"+id);
-            set({blogs: [...get().blogs.filter(blog => blog.id !== id)]})
+            set({blogs: [...get().blogs.filter(blog => blog._id !== id)]})
         } catch (error) {
             console.log(error.response.data.message);
             set({blogs: [...get().blogs]});
         }
     },
-
-    updateBlog: async (data) => {
-        
+    
+    updateBlog: async (id, data) => {
+        try {
+            const res = await axiosInstance.put(`/blogs/${id}`, data);
+            const updatedBlogs = [...get().blogs.filter(blog => blog._id !== id), res.data]
+            set({blogs: updatedBlogs})
+            return {success: true, data: res.data};
+        } catch (error) {
+            console.log(error.response.data.message);
+            set({blogs: [...get().blogs]});
+            return {success: false};
+        }
     }
 }))
