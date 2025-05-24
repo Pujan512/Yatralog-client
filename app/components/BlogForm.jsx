@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react'
 import { redirect } from 'next/navigation';
+import { useAuthStore } from '../lib/store/useAuthStore';
 
 const BlogForm = ({id, btnText, formAction, title, description}) => {
 
@@ -26,8 +27,11 @@ const BlogForm = ({id, btnText, formAction, title, description}) => {
 
     //dynamic function post or edit
     const res = await formAction(formDataToSend);
-    if(res.success) btnText ===' Add' ? redirect('/blogs') : redirect('/blogs/'+id);
+    if(res.success) btnText ==='Add' ? redirect('/blogs') : redirect('/blogs/'+id);
   }
+
+  const {authUser} = useAuthStore();
+  if(!authUser) redirect('/login');
 
   return (
     <section>

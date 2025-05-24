@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import AuthProvider from "./components/AuthProvider";
 
 const inter = Inter({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -22,7 +23,9 @@ export default function RootLayout({ children }) {
         className={`${inter.className} antialiased flex flex-col justify-between min-h-screen`}
       >
         <NavBar />
-        {children}
+        <main className="flex flex-1">
+          <AuthProvider>{children}</AuthProvider>
+        </main>
         <Toaster />
         <Footer />
       </body>
