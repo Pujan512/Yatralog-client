@@ -10,10 +10,10 @@ const Blog = () => {
   const { getBlog, selectedBlog } = useBlogStore();
   const { authUser } = useAuthStore();
   const { id } = useParams();
-  const author = selectedBlog?.authorId ? selectedBlog.authorId.fName + " " + selectedBlog.authorId?.lName : '';
+  const author = selectedBlog?.authorId ? selectedBlog?.authorId.fName + " " + selectedBlog?.authorId?.lName : '';
 
   useEffect(() => {
-    const fetchBlog = async () =>{
+    const fetchBlog = async () => {
       try {
         await getBlog(id);
       } catch (error) {
@@ -26,16 +26,18 @@ const Blog = () => {
     fetchBlog();
   }, [])
 
-  if(loading) return <div>Loading...</div>
-  
-  if(!loading && !authUser) redirect('/login');
+  if (loading) return <div>Loading...</div>
+
+  if (!loading && !authUser) redirect('/login');
 
   return (
-    <section className='flex flex-1 flex-col'>
-      <h2>{selectedBlog.title}</h2>
-      <h4>{author}</h4>
-      <span>{moment(selectedBlog.createdAt).format('lll')}</span>
-      <article className='flex gap-5'>
+    <article className='mx-50 my-5 w-full flex flex-col gap-3'>
+      <section className='flex items-center gap-5'>
+        <h4 className='text-xl'>{author}</h4>
+        <span className='text-sm text-gray-600'>{moment(selectedBlog.createdAt).format('lll')}</span>
+      </section>
+      <h2 className='text-5xl font-semibold'>{selectedBlog.title[0].toUpperCase() + selectedBlog.title.slice(1)}</h2>
+      <section className='flex gap-5'>
         {selectedBlog.images?.map((imgSrc, index) => (
           <a key={index} href={imgSrc.url} target='_blank'>
             <img src={imgSrc.url}
@@ -44,9 +46,9 @@ const Blog = () => {
             />
           </a>
         ))}
-      </article>
-      <p>{selectedBlog.description}</p>
-    </section>
+      </section>
+      <p className='whitespace-pre-wrap text-lg'>{selectedBlog.description}</p>
+    </article>
   )
 }
 

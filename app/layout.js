@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
         className={`${inter.className} antialiased flex flex-col justify-between min-h-screen`}
       >
         <NavBar />
-        <main className="flex flex-1">
+        <main className="flex flex-1 mt-15">
           <AuthProvider>{children}</AuthProvider>
         </main>
         <Toaster />

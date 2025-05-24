@@ -11,7 +11,7 @@ const NavBar = () => {
   },[]);
 
   return (
-    <nav className='h-15 bg-gray-700 flex items-center px-20 text-white justify-between'>
+    <nav className='h-15 bg-gray-700 flex items-center px-20 text-white justify-between fixed w-screen'>
       <div className='flex items-center gap-10'>
         <Link className='text-3xl font-bold' href='/'>Yatralog</Link>
         <Link href='/'>Home</Link>
