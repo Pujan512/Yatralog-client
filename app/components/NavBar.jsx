@@ -24,7 +24,7 @@ const NavBar = () => {
       </div> :
       <div className='flex gap-8 items-center'>
         <Link className='outline-1 px-4 py-2 rounded-md' href='/addBlog'>Add +</Link>
-        <Link href='/user'>User</Link>
+        <Link href='/user/profile'>User</Link>
         <button className='cursor-pointer' onClick={() => logout()}>Logout</button>
       </div>
       }

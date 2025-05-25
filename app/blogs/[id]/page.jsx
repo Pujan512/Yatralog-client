@@ -11,6 +11,7 @@ const Blog = () => {
   const { authUser } = useAuthStore();
   const { id } = useParams();
   const author = selectedBlog?.authorId ? selectedBlog?.authorId.fName + " " + selectedBlog?.authorId?.lName : '';
+  console.log(selectedBlog);
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -32,7 +33,8 @@ const Blog = () => {
 
   return (
     <article className='mx-50 my-5 w-full flex flex-col gap-3'>
-      <section className='flex items-center gap-5'>
+      <section className='flex items-center gap-3'>
+        <img className='size-8 rounded-full' src={selectedBlog.authorId.profilePic} alt={author}/>
         <h4 className='text-xl'>{author}</h4>
         <span className='text-sm text-gray-600'>{moment(selectedBlog.createdAt).format('lll')}</span>
       </section>

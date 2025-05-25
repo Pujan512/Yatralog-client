@@ -4,11 +4,11 @@ import { useEffect } from "react";
 import { useAuthStore } from "../lib/store/useAuthStore"
 
 const AuthProvider = ({ children }) => {
-    const {authUser, checkAuth} = useAuthStore();
+    const {checkAuth} = useAuthStore();
 
     useEffect(()=>{
         checkAuth();
-    },[authUser])
+    },[checkAuth])
     
   return (
     <>{children}</>
