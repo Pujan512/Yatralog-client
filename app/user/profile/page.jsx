@@ -1,7 +1,6 @@
 'use client'
 import SideBar from '@/app/components/SideBar';
 import { useAuthStore } from '@/app/lib/store/useAuthStore';
-import { redirect } from 'next/navigation';
 import { useState } from 'react';
 
 const Profile = () => {
@@ -31,7 +30,7 @@ const Profile = () => {
         }
     }
 
-    if (!authUser) redirect('/login')
+    if (!authUser) return <div>Loading...</div>
 
     return (
         <section className='flex gap-20 w-full'>

@@ -50,8 +50,8 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validate()) return;
-    await signup(formData)
+    validate()
+    await signup(formData);
     redirect('/blogs');
   }
 
